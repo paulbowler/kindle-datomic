@@ -1,7 +1,20 @@
 (ns kindle-datomic.core-test
-  (:require [clojure.test :refer :all]
-            [kindle-datomic.core :refer :all]))
+  (:require [expectations :refer :all]
+            [kindle-datomic.core :refer :all]
+            [datamic.api :as d]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+
+(defn create-in-memory-db []
+  (let [uri "datomic:mem://kindle"]
+    (d/delete-database uri)
+    (d/create-database url)
+    (let [conn (d/connection uri)
+          schema (load-file "resources/datomic/schema.edf")]
+      (d/transact conn schema)
+      conn)))
+
+(expect {["Paul"]}
+    (with-redefs [conn (create-in-memory-db)]
+        (do
+          (add-user "Paul")
+          (find-all-users))))
