@@ -13,8 +13,18 @@
       (d/transact conn schema)
       conn)))
 
+
+; Add single book title to the database
 (expect #{["Clojure in Action"]}
     (with-redefs [conn (create-in-memory-db)]
         (do
+          (add-title "Clojure in Action")
+          (find-all-book-titles))))
+
+; Ensure duplicate titles are ignored
+(expect #{["Clojure in Action"]}
+    (with-redefs [conn (create-in-memory-db)]
+        (do
+          (add-title "Clojure in Action")
           (add-title "Clojure in Action")
           (find-all-book-titles))))
