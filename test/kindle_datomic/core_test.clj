@@ -1,20 +1,20 @@
 (ns kindle-datomic.core-test
   (:require [expectations :refer :all]
             [kindle-datomic.core :refer :all]
-            [datamic.api :as d]))
+            [datomic.api :as d]))
 
 
 (defn create-in-memory-db []
   (let [uri "datomic:mem://kindle"]
     (d/delete-database uri)
-    (d/create-database url)
-    (let [conn (d/connection uri)
-          schema (load-file "resources/datomic/schema.edf")]
+    (d/create-database uri)
+    (let [conn (d/connect uri)
+          schema (load-file "resources/datomic/schema.edn")]
       (d/transact conn schema)
       conn)))
 
-(expect {["Paul"]}
+(expect #{["Clojure in Action"]}
     (with-redefs [conn (create-in-memory-db)]
         (do
-          (add-user "Paul")
-          (find-all-users))))
+          (add-title "Clojure in Action")
+          (find-all-book-titles))))
