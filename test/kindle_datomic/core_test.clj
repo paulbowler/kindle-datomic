@@ -29,6 +29,14 @@
           (add-title "Clojure in Action")
           (find-all-book-titles))))
 
+; Ensure adding an author does not create duplicate book
+(expect #{["Clojure in Action"]}
+    (with-redefs [conn (create-in-memory-db)]
+        (do
+          (add-title "Clojure in Action")
+          (add-author-to-title "Amit Rathore" "Clojure in Action")
+          (find-all-book-titles))))
+
 ; Get id of book title
 (expect Long
     (with-redefs [conn (create-in-memory-db)]

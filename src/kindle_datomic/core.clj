@@ -46,4 +46,3 @@
                 [?author :book/title ?book-title]]
        (d/db conn)
        author-name))
-
