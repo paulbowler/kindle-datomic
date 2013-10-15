@@ -60,10 +60,20 @@
           (add-author-to-title "Amit Rathore" "Clojure in Action")
           (find-all-authors))))
 
-; Find book for an author
+; Find single book for an author
 (expect #{["Clojure in Action"]}
     (with-redefs [conn (create-in-memory-db)]
         (do
           (add-title "Clojure in Action")
           (add-author-to-title "Amit Rathore" "Clojure in Action")
+          (find-titles-for-author "Amit Rathore"))))
+
+; Find multiple books for an author
+(expect #{["Clojure in Action"]["Java in Action"]}
+    (with-redefs [conn (create-in-memory-db)]
+        (do
+          (add-title "Clojure in Action")
+          (add-title "Java in Action")
+          (add-author-to-title "Amit Rathore" "Clojure in Action")
+          (add-author-to-title "Amit Rathore" "Java in Action")
           (find-titles-for-author "Amit Rathore"))))

@@ -33,16 +33,15 @@
          :where [_ :book/title ?book-title]]
        (d/db conn)))
 
+(defn find-titles-for-author [author-name]
+  (d/q '[:find ?title
+         :where
+         [?e :book/authors ?author-name]
+         [?e :book/title ?title]]
+       (d/db conn)
+       author-name))
+
 (defn find-all-authors []
   (d/q '[:find ?author-name
          :where [_ :author/name ?author-name]]
        (d/db conn)))
-
-(defn find-titles-for-author [author-name]
-  (d/q '[:find ?book-title
-         :in $ ?author-name
-         :where [?eid :author/name ?author-name]
-                [?eid :book/authors ?author]
-                [?author :book/title ?book-title]]
-       (d/db conn)
-       author-name))
