@@ -17,4 +17,18 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "An author's name"
+  :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
+  :db/ident :book/clippings
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "The clippings of a book"
+  :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
+  :db/ident :clipping/text
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "A book clipping"
   :db.install/_attribute :db.part/db}]

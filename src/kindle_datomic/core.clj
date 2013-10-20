@@ -45,3 +45,15 @@
   (d/q '[:find ?author-name
          :where [_ :author/name ?author-name]]
        (d/db conn)))
+
+(defn add-clipping-to-title [clipping-text book-title]
+  (let [clipping-id (d/tempid :db.part/user)]
+    @(d/transact conn [{:db/id clipping-id
+                      :clipping/text clipping-text}
+                       {:db/id (get-title-id book-title)
+                      :book/clippings clipping-id}])))
+
+(defn find-all-clippings []
+  (d/q '[:find ?clipping-text
+         :where [_ :clipping/text ?clipping-text]]
+       (d/db conn)))

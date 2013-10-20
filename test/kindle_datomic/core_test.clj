@@ -77,3 +77,11 @@
           (add-author-to-title "Amit Rathore" "Clojure in Action")
           (add-author-to-title "Amit Rathore" "Java in Action")
           (find-titles-for-author "Amit Rathore"))))
+
+; Add clipping to a single book title
+(expect #{["Clojure is cool"]}
+    (with-redefs [conn (create-in-memory-db)]
+        (do
+          (add-title "Clojure in Action")
+          (add-clipping-to-title "Clojure is cool" "Clojure in Action")
+          (find-all-clippings))))
