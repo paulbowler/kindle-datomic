@@ -30,5 +30,19 @@
   :db/ident :clipping/text
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "A book clipping"
+  :db/doc "The book clipping"
+  :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
+  :db/ident :clipping/page
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Page of book clipping"
+  :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
+  :db/ident :clipping/location
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Location of a book clipping"
   :db.install/_attribute :db.part/db}]
